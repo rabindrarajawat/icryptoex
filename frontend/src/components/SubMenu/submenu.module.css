@@ -1,0 +1,202 @@
+
+.selectMenu{
+  font-weight: bold;
+  border-bottom: 2px solid #5367FF;
+}
+.searchContainer {
+  margin-top: 4%;
+  margin-left: 12%;
+  border: #D9D9D9;
+}
+.borderbottom{
+width:100%;
+ border-bottom: 2px solid #D9D9D9;
+}
+.largeInput {
+  width: 271px;
+  border-color:#D9D9D9;
+}
+.listMargin {
+  margin-top: 30px;
+}
+.Tokens {
+  font-weight: bold;
+  color: black;
+  margin-top: 12px;
+}
+.btc {
+  margin-top: 28px;
+}
+
+.btcusdc {
+  margin-left: 33px;
+  margin-top: 15px;
+}
+.pco {
+    margin-left: -282px;
+  margin-top: 30px;
+}
+.analysis {
+  font-weight: bold;
+}
+.transcation {
+  /* margin-left:8rem !important; */
+  font-weight: bold;
+}
+.tolow {
+  margin-left: 3px;
+  font-size: 80%;
+}
+.tohigh {
+  margin-left: 12%;
+  margin-right: -73%;
+  font-size: 80%;
+}
+.tohignum {
+  margin-left: 76%;
+}
+.hilow{
+  margin-top:-3%;
+}
+.hilow1{
+  margin-top:-6%;
+}
+.righthm{
+  margin-left:82%;
+}
+.whigh {
+  margin-left: 17%;
+  margin-right: -27%;
+  font-size: 80%;
+}
+.wlow{
+  font-size: 80%;
+}
+.tofix{
+  margin-left: 90%;
+}
+.progress {
+  width: 501px;
+  height: 10px;
+}
+.formRange {
+  width: 496px;
+ 
+    margin-right: -10%;
+    margin-left: 10%;
+}
+.buySell {
+    margin-top: -26%;
+    margin-left: -25%;
+}
+.limit {
+  margin-top: -94px;
+  margin-left: -19%;
+}
+.analysisCol{
+  margin-left: 2%;
+  width:48%;
+}
+.Statisctis{
+  margin-left:-1%;
+}
+.mainTransaction {
+  margin-left: 14%;
+}
+.transcation{
+    margin-left: 14%;
+
+
+}
+.mainOrder {
+  margin-left: 49%;
+  margin-top: -10%;
+}
+
+.orderPrice {
+  margin-left: -155px;
+  width: 319px;
+}
+.total {
+  margin-left: -166px;
+}
+.mainorder1{
+  margin-top:-16%;
+  margin-left: 0%;
+
+}
+.orderPricesell{
+  margin-left: -63%;
+  width: 150%;
+}
+.total1{
+  margin-left:-69%;
+}
+.buyselB {
+  margin-left: 21%;
+}
+.otd {
+  margin-left: 41.5%;
+  margin-right: -13%;
+}
+.mainContainer {
+  margin-right: 13%;
+}
+.chart{
+    margin-left:-1%
+}
+.orderBook{
+    margin-left:-2%;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 767px) {
+  .searchContainer {
+    margin-top: 8%;
+    margin-left: 5%;
+  }
+
+  .largeInput {
+    width: 100%;
+  }
+
+  .btcusdc,
+  .pco,
+  .hilow,
+  .hilow1,
+  .righthm,
+  .whigh,
+  .wlow,
+  .tofix,
+  .formRange,
+  .buySell,
+  .limit,
+  .analysisCol,
+  .Statisctis,
+  .mainTransaction,
+  .transcation,
+  .mainOrder,
+  .orderPrice,
+  .total,
+  .mainorder1,
+  .orderPricesell,
+  .total1,
+  .buyselB,
+  .otd,
+  .mainContainer,
+  .chart,
+  .orderBook {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+/* .chart{
+    margin-left:1%;
+} */
+
+/* <div className="d-flex flex-row bd-highlight mb-3">
+  <div className="p-2 bd-highlight">Flex item 1</div>
+  <div className="p-2 bd-highlight">Flex item 2</div>
+  <div className="p-2 bd-highlight">Flex item 3</div>
+</div> */

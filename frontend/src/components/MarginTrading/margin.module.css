@@ -1,0 +1,148 @@
+.navBorder {
+  border-bottom: 2px solid #5367ff;
+}
+.searchContainer {
+  margin-top: 4%;
+  margin-left: 12%;
+}
+.largeInput {
+  width: 271px;
+}
+.listMargin {
+  margin-top: 30px;
+}
+.Tokens {
+  font-weight: bold;
+  color: black;
+  margin-top: 12px;
+}
+.btc {
+  margin-top: 28px;
+}
+
+.btcusdc {
+  margin-left: 33px;
+  margin-top: 15px;
+}
+.pco {
+  margin-left: -282px;
+  margin-top: 30px;
+}
+.analysisCol {
+  width: 45%;
+  margin-left: 1%;
+  margin-top: 1.5%;
+}
+
+.analysis {
+  font-weight: bold;
+}
+.transcation {
+  /* margin-left:8rem !important; */
+  font-weight: bold;
+}
+.tolow {
+  margin-left: 3px;
+  font-size: 80%;
+}
+.tohigh {
+  margin-left: 74%;
+  margin-right: -26%;
+  font-size: 80%;
+}
+.tohignum {
+  margin-left: 97%;
+  margin-top: -10%;
+}
+.tolownum{
+  margin-top: -10%;
+  margin-left: -1%;
+}
+.wlow{
+  font-size:80%;
+}
+.whigh {
+  margin-left: 81%;
+  margin-right: -31%;
+  font-size: 80%;
+}
+.setlh{
+  margin-top:-3;
+}
+.progress {
+  width: 501px;
+  height: 10px;
+}
+.formRange {
+  width: 399%;
+  margin-top: -7%;
+  margin-left: 27%;
+}
+.buySell {
+  margin-top: -20%;
+  margin-left: -36%;
+}
+.limit {
+  margin-top: -105px;
+  margin-left: -31%;
+}
+.colMain {
+     margin-top: -1%;
+    margin-left: 6%;
+}
+.Statisctis {
+  margin-left: -1%;
+}
+.mainTransaction {
+  margin-left: 14%;
+  
+}
+.transcation {
+  margin-left: -7%;
+}
+.mainOrder {
+  margin-left: 19%;
+  margin-top: -6%;
+}
+.orderPrice {
+  margin-left: -155px;
+  width: 319px;
+}
+.total {
+  margin-left: -166px;
+}
+.buyselB {
+  margin-left: 21%;
+}
+.otd {
+  margin-left: 42%;
+  margin-right: -17%;
+}
+.mainContainer {
+  margin-right: 13%;
+}
+.chart {
+  margin-left: -1%;
+}
+.orderBook {
+  margin-left: -2%;
+}
+.CrossMargin {
+  margin-top: 6%;
+  margin-left: -6%;
+  width: 64%;
+}
+.selectLevearge{
+  margin-left:-5%;
+  margin-top:5%;
+}
+
+/* .chart{
+      margin-left:1%;
+  } */
+
+/* <div className="d-flex flex-row bd-highlight mb-3">
+    <div className="p-2 bd-highlight">Flex item 1</div>
+    <div className="p-2 bd-highlight">Flex item 2</div>
+    <div className="p-2 bd-highlight">Flex item 3</div>
+  </div> */

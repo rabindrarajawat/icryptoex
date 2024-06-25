@@ -1,0 +1,134 @@
+.navBorder {
+    border-bottom: 2px solid #5367ff;
+  }
+  .searchContainer {
+    margin-top: 4%;
+    margin-left: 12%;
+  }
+  .largeInput {
+    width: 271px;
+  }
+  .listMargin {
+    margin-top: 30px;
+  }
+  .Tokens {
+    font-weight: bold;
+    color: black;
+    margin-top: 12px;
+  }
+  .fundTime{
+    margin-left:-29%;
+  }
+  .btc {
+    margin-top: 28px;
+  }
+  
+  .btcusdc {
+    margin-left: 33px;
+    margin-top: 15px;
+  }
+  .pco {
+    margin-left: -282px;
+    margin-top: 30px;
+  }
+  .analysisCol {
+    width: 46%;
+    margin-top:1.5%;
+  }
+  .analysis {
+    font-weight: bold;
+  }
+  .transcation {
+    /* margin-left:8rem !important; */
+    font-weight: bold;
+  }
+  .tolow {
+    margin-left: 3px;
+  }
+  .tohigh {
+    margin-left: 155px;
+    margin-right: -11%;
+  }
+  .tohignum {
+    margin-left: 566px;
+  }
+  .whigh {
+    margin-left: 28%;
+    margin-right: -2%;
+  }
+  .progress {
+    width: 501px;
+    height: 10px;
+  }
+  .formRange {
+    width: 400px;
+  }
+  .buySell {
+    margin-top: -20%;
+    margin-left: -36%;
+  }
+  .limit {
+    margin-top: -105px;
+    margin-left: -31%;
+  }
+  .colMain {
+    margin-top: -1%;
+    margin-left: 6%;
+  }
+  .Statisctis {
+    margin-left: -1%;
+  }
+  .mainTransaction {
+    margin-left: 14%;
+    margin-top: -1%;
+  }
+  .transcation {
+    margin-left: -7%;
+  }
+  .mainOrder {
+    margin-left: 19%;
+    margin-top: -6%;
+  }
+  .orderPrice {
+    margin-left: -155px;
+    width: 319px;
+  }
+  .total {
+    margin-left: -166px;
+  }
+  .buyselB {
+    margin-left: 21%;
+  }
+  .otd {
+    margin-left: 340px;
+    margin-right: -17%;
+  }
+  .mainContainer {
+    margin-right: 13%;
+  }
+  .chart {
+    margin-left: -1%;
+  }
+  .orderBook {
+    margin-left: -2%;
+  }
+  .CrossMargin {
+    margin-top: 6%;
+    margin-left: -6%;
+    width: 64%;
+  }
+  .selectLevearge{
+    margin-left:-5%;
+    margin-top:5%;
+  }
+  
+  /* .chart{
+        margin-left:1%;
+    } */
+  
+  /* <div className="d-flex flex-row bd-highlight mb-3">
+      <div className="p-2 bd-highlight">Flex item 1</div>
+      <div className="p-2 bd-highlight">Flex item 2</div>
+      <div className="p-2 bd-highlight">Flex item 3</div>
+    </div> */
+  
