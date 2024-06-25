@@ -12,6 +12,15 @@ diesel::table! {
 }
 
 diesel::table! {
+    orders (id) {
+        id -> Int4,
+        order_price -> Numeric,
+        order_value -> Numeric,
+        order_quantity -> Numeric,
+    }
+}
+
+diesel::table! {
     users (id) {
         id -> Int4,
         name -> Varchar,
@@ -24,5 +33,6 @@ diesel::table! {
 
 diesel::allow_tables_to_appear_in_same_query!(
     employees,
+    orders,
     users,
 );
