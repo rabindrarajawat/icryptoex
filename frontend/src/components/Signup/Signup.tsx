@@ -1,121 +1,104 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import styles from "./signup.module.css";
+import React, { useState, FormEvent } from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import styles from './signup.module.css';
 
-const SignupForm: React.FC = () => {
+// Prop type for the LoginForm component
+interface SignupFormProps {
+  onSignup: () => void;
+}
+
+const SignupForm: React.FC<SignupFormProps> = ({ onSignup }) => {
+  const [name, setname] = useState("");
   const [username, setUsername] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [confirmpassword, setconfirmPassword] = useState("");
 
-  const handleSignup = () => {
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
     console.log(`Username: ${username}, Password: ${password}`);
-  };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword);
+    onSignup();
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card shadow">
-            <div className="card-header">Signup</div>
-            <div className="card-body">
-              <form>
-                <div className="mb-3">
-                  <label htmlFor="name" className="form-label">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="username" className="form-label">
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="mb-3 position-relative">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    className="form-control"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <span
-                    className={styles.passwordToggle}
-                    onClick={togglePasswordVisibility}
-                  >
-                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-                  </span>
-                </div>
-                <div className="mb-3 position-relative">
-                  <label htmlFor="confirmPassword" className="form-label">
-                    Confirm Password
-                  </label>
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    className="form-control"
-                    id="confirmPassword"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                  <span
-                    className={styles.passwordToggle}
-                    onClick={toggleConfirmPasswordVisibility}
-                  >
-                    <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleSignup}
-                  style={{ display: 'block', margin: '0 auto', textAlign: 'center' }}
-                >
-                  Create Account
-                </button>
-              </form>
-            </div>
+    <div className={styles.container}>
+      <div className={styles.formWrapper}>
+        <h2>Login</h2>
+        <form className={styles.formContent} onSubmit={handleLogin}>
+         
+         
+        <div className={styles.inputBox}>
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setname(e.target.value)}
+              required
+            />
+            <i className={`bi bi-person-fill ${styles.icon}`}></i>
           </div>
-        </div>
+
+          <div className={styles.inputBox}>
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <i className={`bi bi-person-fill ${styles.icon}`}></i>
+          </div>
+
+          <div className={styles.inputBox}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+ <i className={`bi bi-envelope-fill ${styles.icon}`}></i>          </div>
+
+          <div className={styles.inputBox}>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <i className={`bi bi-lock-fill ${styles.icon}`}></i>
+          </div>
+          
+          
+          <div className={styles.inputBox}>
+            <input
+              type="password"
+              placeholder="Confirm password"
+              value={confirmpassword}
+              onChange={(e) => setconfirmPassword(e.target.value)}
+              required
+            />
+            <i className={`bi bi-lock-fill ${styles.icon}`}></i>
+          </div>
+
+          <div className={styles.rememberForget}>
+            <label>
+              <input type="checkbox" />
+              Remember me
+            </label>
+            {/* <a href="#">Forget password?</a> */}
+          </div>
+          <div className={styles.buttonStyle}>
+            <button type="submit">Create</button>
+          </div>
+          <div className={styles.registerLink}>
+            <p>
+              You have an account? <a href="#">Login Here</a>
+            </p>
+          </div>
+        </form>
       </div>
     </div>
   );
