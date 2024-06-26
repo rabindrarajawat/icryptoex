@@ -23,7 +23,7 @@ export default function Home() {
     <main className={styles.myContianer}>
       {/* <LoginForm /> */}
       
-<SignupForm/>
+
       <div>
         <Header />
         <SubMenu
