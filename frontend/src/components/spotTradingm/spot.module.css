@@ -1,0 +1,10 @@
+@media (min-width: 375px) and (min-width:798px) { 
+    .spot{
+     display: none !important;
+   
+    }
+     }
+     .custom-dark-text {
+        color: #343a40; /* This is Bootstrap's default dark text color */
+      }
+      

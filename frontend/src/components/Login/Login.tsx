@@ -1,57 +1,66 @@
-import { useState } from "react";
+import React, { useState, FormEvent } from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import styles from './Login.module.css';
 
-const LoginForm: React.FC = () => {
+// Prop type for the LoginForm component
+interface LoginFormProps {
+  onLogin: () => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    // Perform login logic here
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
     console.log(`Username: ${username}, Password: ${password}`);
+
+    onLogin();
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6 ">
-          <div className="card shadow">
-            <div className="card-header">Login</div>
-            <div className="card-body">
-              <form>
-                <div className="mb-3">
-                  <label htmlFor="username" className="form-label">
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleLogin}
-                >
-                  Login
-                </button>
-              </form>
-            </div>
+    <div className={styles.container}>
+      <div className={styles.formWrapper}>
+        <h2>Login</h2>
+        <form className={styles.formContent} onSubmit={handleLogin}>
+          <div className={styles.inputBox}>
+            <input
+              type="text"
+              placeholder="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <i className={`bi bi-person-fill ${styles.icon}`}></i>
           </div>
-        </div>
+
+          <div className={styles.inputBox}>
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <i className={`bi bi-lock-fill ${styles.icon}`}></i>
+          </div>
+
+          <div className={styles.rememberForget}>
+            <label>
+              <input type="checkbox" />
+              Remember me
+            </label>
+            <a href="#">Forget password?</a>
+          </div>
+          <div className={styles.buttonStyle}>
+            <button type="submit">Login</button>
+          </div>
+          <div className={styles.registerLink}>
+            <p>
+              Don't have an account? <a href="#">SignnUp</a>
+            </p>
+          </div>
+        </form>
       </div>
     </div>
   );
