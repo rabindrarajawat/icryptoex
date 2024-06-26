@@ -57,7 +57,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           </div>
           <div className={styles.registerLink}>
             <p>
-              Don't have an account? <a href="#">Register</a>
+              Don't have an account? <a href="#">SignnUp</a>
             </p>
           </div>
         </form>
