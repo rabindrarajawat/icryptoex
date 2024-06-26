@@ -1,37 +1,13 @@
-
-// use diesel ::{Insertable,Queryable,QueryableByName};
-// use serde::{Deserialize, Serialize};
-// use crate :: schema::orders;
-
-// #[derive(Queryable,Serialize,Deserialize,Debug,QueryableByName)]
-// #[table_name = "orders"]
-// pub struct Order{
-//     pub id:i32,
-//     pub order_price:i32,
-//     pub order_value:i32,
-//     pub order_quantity:i32,
-// }
-
-// #[derive(Insertable)]
-// #[diesel(table_name = orders)]
-// pub struct NewOrder{
-//     pub order_price:i32,
-//     pub order_value:i32,
-//     pub order_quantity:i32,
-// }
-
-
-
-
 use crate::schema::orders;
 use bigdecimal::BigDecimal;
 use diesel::{Insertable, Queryable, QueryableByName};
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 #[derive(Queryable, Serialize, Deserialize, Debug, QueryableByName)]
-#[table_name = "orders"]
+#[diesel(table_name = orders)]
 pub struct Order {
-    pub id: i32,
+    pub id: Uuid,
     pub order_price: BigDecimal,
     pub order_value: BigDecimal,
     pub order_quantity: BigDecimal,
@@ -47,7 +23,7 @@ pub struct NewOrder {
 
 #[derive(Serialize, Deserialize)]
 pub struct OrderResponse {
-    pub id: i32,
+    pub id: Uuid,
     pub order_price: BigDecimal,
     pub order_value: BigDecimal,
     pub order_quantity: BigDecimal,
