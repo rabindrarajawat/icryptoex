@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import styles from "./Future.module.css";
 import Image from "next/image";
 import { Line } from "react-chartjs-2";
