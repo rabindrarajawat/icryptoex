@@ -1,11 +1,3 @@
-// use crate::orders::order_services::order_service::{create_orders,get_all_orders};
-
-// use actix_web::web;
-// pub fn order_routes(cfg:&mut web::ServiceConfig){
-//     cfg.route("/orders",web::post().to(create_orders))
-//     .route("/get-orgders",web::get().to(get_all_orders));
-// }
-
 
 
 
