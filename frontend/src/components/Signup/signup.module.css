@@ -1,0 +1,10 @@
+.passwordToggle {
+    position: absolute;
+    top: 75%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+    user-select: none;
+  }
+  

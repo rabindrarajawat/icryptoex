@@ -12,8 +12,7 @@ import { useState } from "react";
 import LoginForm from "@/components/Login/Login";
 import { MarginTrading } from "@/components/MarginTrading/MarginTrading";
 import { FuturesTrading } from "@/components/FuturesTrading/FuturesTrading";
-
-
+import SignupForm from "@/components/Signup/Signup";
 
 export default function Home() {
   const { theme } = useThemeContext();
@@ -23,24 +22,37 @@ export default function Home() {
   return (
     <main className={styles.myContianer}>
       {/* <LoginForm /> */}
+      
+<SignupForm/>
       <div>
-      <Header />
-        <SubMenu activeMenu={activeMenu} setActiveMenu={setActiveMenu} activePerformance={""} setActivePerformance={function (Performance: string): void {
-          throw new Error("Function not implemented.");
-        } }/>
+        <Header />
+        <SubMenu
+          activeMenu={activeMenu}
+          setActiveMenu={setActiveMenu}
+          activePerformance={""}
+          setActivePerformance={function (Performance: string): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
 
-         
+        <MarginTrading
+          activeMenu={activeMenu}
+          setActiveMenu={setActiveMenu}
+          activePerformance={""}
+          setActivePerformance={function (Performance: string): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
+        <FuturesTrading
+          activeMenu={activeMenu}
+          setActiveMenu={setActiveMenu}
+          activePerformance={""}
+          setActivePerformance={function (Performance: string): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
 
-         <MarginTrading  activeMenu={activeMenu} setActiveMenu={setActiveMenu} activePerformance={""} setActivePerformance ={function (Performance: string): void {
-          throw new Error("Function not implemented.");
-        } } 
-       />
-        <FuturesTrading  activeMenu={activeMenu} setActiveMenu={setActiveMenu} activePerformance={""} setActivePerformance ={function (Performance: string): void {
-          throw new Error("Function not implemented.");
-        } } 
-       />
-
-      {/* <Footer /> */}
+        {/* <Footer /> */}
       </div>
     </main>
   );
