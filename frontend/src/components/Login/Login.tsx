@@ -1,7 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import styles from './Login.module.css';
-import axios from 'axios'; 
+import styles from "./Login.module.css";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 
 interface LoginFormProps {
@@ -15,24 +15,24 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-  
+
     try {
-      const response = await axios.post('http://localhost:8000/login', {
+      const response = await axios.post("http://localhost:8000/login", {
         email,
-        password
+        password,
       });
-  
+
       if (response.status === 200) {
-        console.log('Login successful');
-        onLogin(); 
+        console.log("Login successful");
+        onLogin();
       } else {
-        console.error('Login failed');
+        console.error("Login failed");
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error("Error during login:", error);
     }
   };
-  
+
   return (
     <div className={styles.container}>
       <div className={styles.formWrapper}>
@@ -65,7 +65,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
               <input type="checkbox" />
               Remember me
             </label>
-            <button type="button" onClick={() => router.push('/forget')}>
+            <button type="button" onClick={() => router.push("/forget")}>
               Forget password?
             </button>
           </div>
