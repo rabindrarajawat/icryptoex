@@ -3,7 +3,6 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './Login.module.css';
 import axios from 'axios'; 
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 interface LoginFormProps {
   onLogin: () => void;
@@ -69,7 +68,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             <button type="button" onClick={() => router.push('/forget')}>
               Forget password?
             </button>
-            {/* <Link href="/" onClick={()=> router.push('/forget')} >Forget password?</Link> */}
           </div>
           <div className={styles.buttonStyle}>
             <button type="submit">Login</button>
