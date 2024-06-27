@@ -1,23 +1,39 @@
 import React, { useState, FormEvent } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './Login.module.css';
+import axios from 'axios'; 
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-// Prop type for the LoginForm component
 interface LoginFormProps {
   onLogin: () => void;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
-  const handleLogin = (e: FormEvent) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(`Username: ${username}, Password: ${password}`);
-
-    onLogin();
+  
+    try {
+      const response = await axios.post('http://localhost:8000/login', {
+        email,
+        password
+      });
+  
+      if (response.status === 200) {
+        console.log('Login successful');
+        onLogin(); 
+      } else {
+        console.error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
   };
-
+  
   return (
     <div className={styles.container}>
       <div className={styles.formWrapper}>
@@ -26,9 +42,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           <div className={styles.inputBox}>
             <input
               type="text"
-              placeholder="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="userEmail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
             <i className={`bi bi-person-fill ${styles.icon}`}></i>
@@ -50,14 +66,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
               <input type="checkbox" />
               Remember me
             </label>
-            <a href="#">Forget password?</a>
+            <button type="button" onClick={() => router.push('/forget')}>
+              Forget password?
+            </button>
+            {/* <Link href="/" onClick={()=> router.push('/forget')} >Forget password?</Link> */}
           </div>
           <div className={styles.buttonStyle}>
             <button type="submit">Login</button>
           </div>
           <div className={styles.registerLink}>
             <p>
-              Don't have an account? <a href="#">SignnUp</a>
+              Don't have an account? <a href="#">SignUp</a>
             </p>
           </div>
         </form>
