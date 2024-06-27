@@ -6,30 +6,50 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const Signup = () => {
   const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(""); 
+  const [email, setEmail] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
+  const [country, setCountry] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [email, setEmail] = useState("");
 
   const router = useRouter();
 
-  const createButton = (e) => {
+  const createButton = async (e) => {
     e.preventDefault();
-    if (name && username && password && email && confirmPassword) {
+    if (name && username && email && phone_number && country && password && confirmPassword) {
       if (password !== confirmPassword) {
         toast.error("Password and confirm password do not match.");
       } else {
-        // All fields are filled and passwords match, navigate to home page
-        router.push("/home");
-        toast.success("Account created successfully!");
+        try {
+          const response = await fetch("http://localhost:8000/signup", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, username, email, phone_number, country, password }),
+          });
+  
+          if (response.ok) {
+            router.push("/home");
+            toast.success("Account created successfully!");
+          } else {
+            const errorData = await response.json();
+            console.error('Error response:', errorData);
+            toast.error(`Signup failed: ${errorData.message}`);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          toast.error("An error occurred. Please try again.");
+        }
       }
     } else {
       toast.error("Please fill in all fields.");
     }
   };
+  
 
   return (
     <div className={styles.container}>
@@ -68,6 +88,28 @@ const Signup = () => {
               required
             />
             <i className={`bi bi-envelope-fill ${styles.icon}`}></i>
+          </div>
+
+          <div className={styles.inputBox}>
+            <input
+              type="text"
+              placeholder="Phone"
+              value={phone_number}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              required
+            />
+            <i className={`bi bi-telephone-fill ${styles.icon}`}></i>
+          </div>
+
+          <div className={styles.inputBox}>
+            <input
+              type="text"
+              placeholder="Country"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              required
+            />
+            <i className={`bi bi-geo-alt-fill ${styles.icon}`}></i>
           </div>
 
           <div className={styles.inputBox}>

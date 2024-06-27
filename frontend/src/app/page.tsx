@@ -1,15 +1,11 @@
-'use client'
+"use client";
 import React, { useState, FormEvent } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from "./page.module.css";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-interface LoginFormProps {
-  onLogin: () => void;
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
+const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -25,7 +21,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
       if (response.status === 200) {
         console.log("Login successful");
-        onLogin();
+        router.push("/home"); // Navigate to home page after successful login
       } else {
         console.error("Login failed");
       }
@@ -85,4 +81,3 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 };
 
 export default LoginForm;
-
