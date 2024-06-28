@@ -8,10 +8,12 @@ import { useRouter } from "next/navigation";
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
+    setError(null);
 
     try {
       const response = await axios.post("http://localhost:8000/login", {
@@ -19,14 +21,25 @@ const LoginForm: React.FC = () => {
         password,
       });
 
+      console.log("Full response:", response);
       if (response.status === 200) {
-        console.log("Login successful");
-        router.push("/home"); // Navigate to home page after successful login
+        const token = response.data; 
+        console.log("Received token:", token); 
+        if (token) {
+          localStorage.setItem("token", token);
+          console.log("Login successful");
+          router.push("/home"); 
+        } else {
+          console.error("Token is undefined");
+          setError("Login failed: Token is undefined");
+        }
       } else {
         console.error("Login failed");
+        setError("Invalid email or password");
       }
     } catch (error) {
       console.error("Error during login:", error);
+      setError("Error during login. Please try again.");
     }
   };
 
@@ -34,6 +47,7 @@ const LoginForm: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.formWrapper}>
         <h2>Login</h2>
+        {error && <p className={styles.error}>{error}</p>}
         <form className={styles.formContent} onSubmit={handleLogin}>
           <div className={styles.inputBox}>
             <input
