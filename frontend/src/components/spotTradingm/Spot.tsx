@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./spot.module.css";
-import { SubMenu } from "../SubMenu/SubMenu";
 interface SpotProps {
   activeMenu: string;
   setActiveMenu: (menu: string) => void;

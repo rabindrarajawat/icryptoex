@@ -6,6 +6,7 @@ import { Line } from "react-chartjs-2";
 import TradingViewWidget from "./TradingViewWidget";
 
 import { ChartOptions } from "chart.js";
+import axios from "axios";
 
 const SubMenu: React.FC<{
   activeMenu: string;
@@ -21,6 +22,11 @@ const SubMenu: React.FC<{
   const [showChart, setShowChart] = useState(true);
   const [showDepth, setShowDepth] = useState(false);
   const [showTrade, setShowTrade] = useState(false);
+  const [formData, setFormData] = useState({
+    order_value: "",
+    order_price: "",
+    order_quantity: "",
+  });
 
   const [selectedOption, setSelectedOption] = useState<string | null>("buy");
 
@@ -93,6 +99,26 @@ const SubMenu: React.FC<{
     { link: "Wishlist" },
   ];
 
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/orders",
+        formData
+      );
+      console.log("Order created:", response.data);
+    } catch (error) {
+      console.log("error creating order:", error);
+    }
+  };
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   const handleListClick = (listName: string) => {
     setActiveList(listName);
   };
@@ -144,7 +170,6 @@ const SubMenu: React.FC<{
                     background: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>') no-repeat 10px center`,
                     backgroundSize: "20px",
                     paddingLeft: "40px",
-                   
                   }}
                   placeholder="Search the Token"
                 />
@@ -785,7 +810,11 @@ const SubMenu: React.FC<{
                             className="form-check-input"
                             type="radio"
                             name="flexRadioDefault"
-                            id="flexRadioDefault1"
+                            id="flexRadioDefault    order_value: 2,
+                                order_price: 2,
+                                order_quantity: 5,
+                              });
+                            1"
                           ></input>
                           <label
                             className="form-check-label"
@@ -796,67 +825,84 @@ const SubMenu: React.FC<{
                         </div>
                       </div>
                     </div>
-
                     <div className={styles.mainOrder}>
-                      <div className={styles.orderPrice}>
-                        <div className="ms-5 mt-5">Order Price</div>
-
-                        <div className="row w-100">
-                          <div
-                            className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
-                          >
-                            <h6 className="col-sm-8 ">13450.00</h6>
-                            <h6 className="col-sm-8 ms-5">USDT</h6>
+                      <form onSubmit={handleSubmit}>
+                        <div className={styles.orderPrice}>
+                          <div className="ms-5 mt-5">Order Price</div>
+                          <div className="row w-100">
+                            <div
+                              className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
+                            >
+                              <input
+                                type="number"
+                                name="order_price"
+                                placeholder="13450.00"
+                                value={formData.order_price}
+                                onChange={handleChange}
+                                className="col-sm-8"
+                              />
+                              <h6 className="col-sm-8 ms-5">USDT</h6>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className={styles.orderPrice}>
-                        <div className="ms-5 pt-3">Oty</div>
-
-                        <div className="row w-100">
-                          <div
-                            className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
-                          >
-                            <h6 className="col-sm-8">0.098</h6>
-                            <h6 className="col-sm-8 ms-5">BTC</h6>
+                        <div className={styles.orderPrice}>
+                          <div className="ms-5 pt-3">Order Quantity</div>
+                          <div className="row w-100">
+                            <div
+                              className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
+                            >
+                              <input
+                                type="number"
+                                name="order_quantity"
+                                placeholder="0.098"
+                                value={formData.order_quantity}
+                                onChange={handleChange}
+                                className="col-sm-8"
+                              />
+                              <h6 className="col-sm-8 ms-5">BTC</h6>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className={styles.orderPrice}>
-                        <div className="ms-5 mt-3">Order Value</div>
-
-                        <div className="row w-100">
-                          <div
-                            className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
-                          >
-                            <h6 className="col-sm-8">0.098</h6>
-                            <h6 className="col-sm-8 ms-5">USDT</h6>
+                        <div className={styles.orderPrice}>
+                          <div className="ms-5 mt-3">Order Value</div>
+                          <div className="row w-100">
+                            <div
+                              className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
+                            >
+                              <input
+                                type="number"
+                                name="order_value"
+                                placeholder="13450.00"
+                                value={formData.order_value}
+                                onChange={handleChange}
+                                className="col-sm-8"
+                              />
+                              <h6 className="col-sm-8 ms-5">USDT</h6>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className={styles.total}>
-                        <div className="d-flex flex-row bd-highlight ms-5">
-                          <h6 className="text-dark mt-3 ">Total:</h6>
-                          <span className=" text -white mt-3">
-                            {" "}
-                            Includes 0.2% Fees & 1% TDS
-                          </span>
+                        <div className={styles.total}>
+                          <div className="d-flex flex-row bd-highlight ms-5">
+                            <h6 className="text-dark mt-3 ">Total:</h6>
+                            <span className="text-black m-1 mt-3 ">
+                              Includes 0.2% Fees & 1% TDS
+                            </span>
+                          </div>
+                          <h5 className="text-body mt-2 ms-5">0.00 USDT</h5>
+                          <div className={`mt-5 ${styles.buyselB}`}>
+                            <button type="submit" className="btn btn-success">
+                              Buy
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-light border ms-3"
+                            >
+                              Cancel
+                            </button>
+                          </div>
                         </div>
-                        <h5 className="text-body mt-2 ms-5">0.00USDT</h5>
-                        <div className={`mt-5 ${styles.buyselB}`}>
-                          <button type="button" className="btn btn-success">
-                            Buy
-                          </button>
-
-                          <button
-                            type="button"
-                            className="btn btn-light border ms-3 "
-                          >
-                            Cancel
-                          </button>
-                        </div>
-                      </div>
+                      </form>
                     </div>
                   </>
                 )}
