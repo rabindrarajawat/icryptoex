@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './signup.module.css';
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -16,6 +14,7 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
 
   const router = useRouter();
 
@@ -27,11 +26,27 @@ const Signup = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+  const isPasswordStrong = (password) => {
+    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return strongPasswordRegex.test(password);
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    if (!isPasswordStrong(newPassword)) {
+      setPasswordError("Password must be at least 8 characters long, include one uppercase letter, one lowercase letter, one number, and one special character.");
+    } else {
+      setPasswordError("");
+    }
+  };
+
   const createButton = async (e) => {
     e.preventDefault();
     if (name && username && email && phone_number && country && password && confirmPassword) {
       if (password !== confirmPassword) {
-        toast.error("Password and confirm password do not match.");
+        setPasswordError("Password and confirm password do not match.");
+      } else if (passwordError) {
       } else {
         try {
           const response = await fetch("http://localhost:8000/signup", {
@@ -44,25 +59,23 @@ const Signup = () => {
   
           if (response.ok) {
             router.push("/home");
-            toast.success("Account created successfully!");
           } else {
             const errorData = await response.json();
             console.error('Error response:', errorData);
-            toast.error(`Signup failed: ${errorData.message}`);
+            setPasswordError(`Signup failed: ${errorData.message}`);
           }
         } catch (error) {
           console.error('Error:', error);
-          toast.error("An error occurred. Please try again.");
+          setPasswordError("An error occurred. Please try again.");
         }
       }
     } else {
-      toast.error("Please fill in all fields.");
+      setPasswordError("Please fill in all fields.");
     }
   };
 
   return (
     <div className={styles.container}>
-      <ToastContainer position="top-right" autoClose={3000} />
       <div className={styles.formWrapper}>
         <h2>Signup</h2>
         <form className={styles.formContent} onSubmit={createButton}>
@@ -123,10 +136,10 @@ const Signup = () => {
 
           <div className={styles.inputBox}>
             <input
-              type={showPassword ? "password" : "text"}
+              type={showPassword ? "text" : "password"}
               placeholder="Create Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               required
             />
             <i
@@ -134,10 +147,11 @@ const Signup = () => {
               onClick={toggleShowPassword}
             ></i>
           </div>
+          {passwordError && <p className={styles.error}>{passwordError}</p>}
 
           <div className={styles.inputBox}>
             <input
-              type={showConfirmPassword ? "password" : "text"}
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -154,7 +168,7 @@ const Signup = () => {
               <input type="checkbox" />
               Remember me
             </label>
-            {/* <a href="#">Forget password?</a> */}
+            
           </div>
           <div className={styles.buttonStyle}>
             <button type="submit">Create</button>
