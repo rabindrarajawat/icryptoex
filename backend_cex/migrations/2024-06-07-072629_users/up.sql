@@ -7,3 +7,4 @@ CREATE TABLE users (
     country VARCHAR NOT NULL,
     password  VARCHAR NOT NULL,
 );
+

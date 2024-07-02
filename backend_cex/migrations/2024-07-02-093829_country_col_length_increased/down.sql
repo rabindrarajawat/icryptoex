@@ -1,0 +1,7 @@
+-- This file should undo anything in `up.sql`
+ALTER TABLE users 
+ALTER COLUMN name TYPE VARCHAR,
+ALTER COLUMN email TYPE VARCHAR,
+ALTER COLUMN phone_number TYPE VARCHAR,
+ALTER COLUMN country TYPE VARCHAR,
+ALTER COLUMN password TYPE VARCHAR;
