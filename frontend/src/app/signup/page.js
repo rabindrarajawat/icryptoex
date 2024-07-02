@@ -14,8 +14,18 @@ const Signup = () => {
   const [country, setCountry] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const router = useRouter();
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   const createButton = async (e) => {
     e.preventDefault();
@@ -49,7 +59,6 @@ const Signup = () => {
       toast.error("Please fill in all fields.");
     }
   };
-  
 
   return (
     <div className={styles.container}>
@@ -114,24 +123,30 @@ const Signup = () => {
 
           <div className={styles.inputBox}>
             <input
-              type="password"
-              placeholder="Password"
+              type={showPassword ? "password" : "text"}
+              placeholder="Create Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <i className={`bi bi-lock-fill ${styles.icon}`}></i>
+            <i
+              className={`bi ${showPassword ? "bi-eye-fill" : "bi-eye-slash-fill" } ${styles.eyeIcon} ${styles.icon}`}
+              onClick={toggleShowPassword}
+            ></i>
           </div>
 
           <div className={styles.inputBox}>
             <input
-              type="password"
+              type={showConfirmPassword ? "password" : "text"}
               placeholder="Confirm password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
-            <i className={`bi bi-lock-fill ${styles.icon}`}></i>
+            <i
+              className={`bi ${showConfirmPassword ? "bi-eye-fill":"bi-eye-slash-fill" } ${styles.eyeIcon} ${styles.icon}`}
+              onClick={toggleShowConfirmPassword}
+            ></i>
           </div>
 
           <div className={styles.rememberForget}>

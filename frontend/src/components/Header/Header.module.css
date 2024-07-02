@@ -1,9 +1,31 @@
-.navbarBrand{
-    margin-left: 15.6%;
+/* .navbarBrand{
+ 
     margin-top: 3%;
     margin-bottom: 2%;
-}
+
+}  */
 .containerFluid{
-    margin-left: -7%;
-    margin-top:-2%;
-}
+    margin-right: 9%;
+    margin-left: 6%;
+  }
+   /* .setNavI{
+      margin-right:7%;
+  } */
+  
+  /* @media (max-width: 375px) and (max-width: 991.98px)
+  /* @media (max-width: 375px) and (max-width: 991.98px) */
+   /* { 
+    .phone{
+      color: transparent;
+      height: auto;
+      margin-left: -31%;
+      margin-top: -9%;
+      width: 7rem;
+    }
+    .bellIcon{
+      margin-left: 69%;
+      
+    }
+     */
+  
+    

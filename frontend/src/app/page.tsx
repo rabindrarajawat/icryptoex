@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from "./page.module.css";
 import axios from "axios";
@@ -7,9 +7,21 @@ import { useRouter } from "next/navigation";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(""); // Add this line
   const [error, setError] = useState<string | null>(null);
+  const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const router = useRouter();
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setRememberMe(!rememberMe);
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
@@ -23,12 +35,22 @@ const LoginForm: React.FC = () => {
 
       console.log("Full response:", response);
       if (response.status === 200) {
-        const token = response.data; 
-        console.log("Received token:", token); 
+        const token = response.data;
+        console.log("Received token:", token);
         if (token) {
           localStorage.setItem("token", token);
           console.log("Login successful");
-          router.push("/home"); 
+          router.push("/home");
+
+          if (rememberMe) {
+            localStorage.setItem("rememberMe", "true");
+            localStorage.setItem("email", email);
+            localStorage.setItem("password", password);
+          } else {
+            localStorage.removeItem("rememberMe");
+            localStorage.removeItem("email");
+            localStorage.removeItem("password");
+          }
         } else {
           console.error("Token is undefined");
           setError("Login failed: Token is undefined");
@@ -42,6 +64,23 @@ const LoginForm: React.FC = () => {
       setError("Error during login. Please try again.");
     }
   };
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("userToken");
+    if (userToken) {
+      setLoggedIn(true);
+    }
+    const rememberMeStatus = localStorage.getItem("rememberMe");
+    if (rememberMeStatus === "true") {
+      const storedEmail = localStorage.getItem("email");
+      const storedPassword = localStorage.getItem("password");
+      if (storedEmail && storedPassword) {
+        setEmail(storedEmail);
+        setPassword(storedPassword);
+        setRememberMe(true);
+      }
+    }
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -62,18 +101,27 @@ const LoginForm: React.FC = () => {
 
           <div className={styles.inputBox}>
             <input
-              type="password"
+              type={showPassword ? "password" : "text"}
               placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <i className={`bi bi-lock-fill ${styles.icon}`}></i>
+            <i
+              className={`bi ${
+                showPassword ? "bi-eye-slash-fill" : "bi-eye-fill"
+              } ${styles.eyeIcon} ${styles.icon}`}
+              onClick={toggleShowPassword}
+            ></i>{" "}
           </div>
 
           <div className={styles.rememberForget}>
             <label>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={handleCheckboxChange}
+              />
               Remember me
             </label>
             <button type="button" onClick={() => router.push("/forget")}>
