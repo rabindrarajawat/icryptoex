@@ -1,4 +1,5 @@
 -- Your SQL goes here
+-- Your SQL goes here
 
 -- First, ensure the UUID extension is available
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

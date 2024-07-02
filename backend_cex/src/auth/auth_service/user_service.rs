@@ -10,6 +10,7 @@ use jsonwebtoken::{encode, Header};
 use serde::Deserialize;
 use serde::Serialize;
 use serde_json::json;
+use uuid::Uuid;
 
 #[derive(Deserialize)]
 pub struct SignupData {
@@ -147,7 +148,7 @@ pub async fn get_all_users(
 
 pub async fn get_user_by_id(
     pool: web::Data<r2d2::Pool<ConnectionManager<PgConnection>>>,
-    user_id: web::Path<i32>,
+    user_id: web::Path<Uuid>,
 ) -> HttpResponse {
     let mut conn = get_db_connection(&pool);
 
@@ -174,7 +175,7 @@ pub async fn get_user_by_id(
 
 pub async fn update_user(
     pool: web::Data<r2d2::Pool<ConnectionManager<PgConnection>>>,
-    user_id: web::Path<i32>,
+    user_id: web::Path<Uuid>,
     update_data: web::Json<UpdateUserData>,
 ) -> HttpResponse {
     let mut conn = get_db_connection(&pool);
@@ -217,7 +218,7 @@ pub async fn update_user(
 
 pub async fn delete_user(
     pool: web::Data<r2d2::Pool<ConnectionManager<PgConnection>>>,
-    user_id: web::Path<i32>,
+    user_id: web::Path<Uuid>,
 ) -> HttpResponse {
     let mut conn = get_db_connection(&pool);
 
