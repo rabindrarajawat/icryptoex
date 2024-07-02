@@ -13,7 +13,7 @@ diesel::table! {
 
 diesel::table! {
     orders (id) {
-        id -> Int4,
+        id -> Uuid,
         order_price -> Numeric,
         order_value -> Numeric,
         order_quantity -> Numeric,
