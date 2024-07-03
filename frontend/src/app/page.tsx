@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); // Add this line
+  const [password, setPassword] = useState(""); 
   const [error, setError] = useState<string | null>(null);
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -101,7 +101,7 @@ const LoginForm: React.FC = () => {
 
           <div className={styles.inputBox}>
             <input
-              type={showPassword ? "password" : "text"}
+              type={showPassword ? "text" : "password"}
               placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -109,7 +109,7 @@ const LoginForm: React.FC = () => {
             />
             <i
               className={`bi ${
-                showPassword ? "bi-eye-slash-fill" : "bi-eye-fill"
+                showPassword ? "bi-eye-fill" :"bi-eye-slash-fill" 
               } ${styles.eyeIcon} ${styles.icon}`}
               onClick={toggleShowPassword}
             ></i>{" "}
