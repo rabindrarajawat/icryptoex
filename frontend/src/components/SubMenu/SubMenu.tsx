@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styles from "./submenu.module.css";
 import Image from "next/image";
+import {ToastContainer,toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+ 
 
 import TradingViewWidget from "./TradingViewWidget";
 
@@ -98,7 +101,7 @@ const SubMenu: React.FC<{
     { link: "Wishlist" },
   ];
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -106,10 +109,13 @@ const SubMenu: React.FC<{
         formData
       );
       console.log("Order created:", response.data);
+      toast.success("Order created successfully");
     } catch (error) {
-      console.log("error creating order:", error);
+      console.log("Error creating order:", error);
+      toast.error("Failed to create order");
     }
   };
+
   const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -902,6 +908,8 @@ const SubMenu: React.FC<{
                           </div>
                         </div>
                       </form>
+                     <ToastContainer />
+
                     </div>
                   </>
                 )}
@@ -941,8 +949,89 @@ const SubMenu: React.FC<{
                         </div>
                       </div>
                     </div>
-
                     <div className={styles.mainOrder}>
+                      <form onSubmit={handleSubmit}>
+                        <div className={styles.orderPrice}>
+                          <div className="ms-5 mt-5">Order Price</div>
+                          <div className="row w-100">
+                            <div
+                              className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
+                            >
+                              <input
+                                type="number"
+                                name="order_price"
+                                placeholder="13450.00"
+                                value={formData.order_price}
+                                onChange={handleChange}
+                                className="col-sm-8"
+                              />
+                              <h6 className="col-sm-8 ms-5">USDT</h6>
+                            </div>
+                          </div>
+                        </div>
+                        <div className={styles.orderPrice}>
+                          <div className="ms-5 pt-3">Order Quantity</div>
+                          <div className="row w-100">
+                            <div
+                              className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
+                            >
+                              <input
+                                type="number"
+                                name="order_quantity"
+                                placeholder="0.098"
+                                value={formData.order_quantity}
+                                onChange={handleChange}
+                                className="col-sm-8"
+                              />
+                              <h6 className="col-sm-8 ms-5">BTC</h6>
+                            </div>
+                          </div>
+                        </div>
+                        <div className={styles.orderPrice}>
+                          <div className="ms-5 mt-3">Order Value</div>
+                          <div className="row w-100">
+                            <div
+                              className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
+                            >
+                              <input
+                                type="number"
+                                name="order_value"
+                                placeholder="13450.00"
+                                value={formData.order_value}
+                                onChange={handleChange}
+                                className="col-sm-8"
+                              />
+                              <h6 className="col-sm-8 ms-5">USDT</h6>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className={styles.total}>
+                          <div className="d-flex flex-row bd-highlight ms-5">
+                            <h6 className="text-dark mt-3 ">Total:</h6>
+                            <span className="text-black m-1 mt-3 ">
+                              Includes 0.2% Fees & 1% TDS
+                            </span>
+                          </div>
+                          <h5 className="text-body mt-2 ms-5">0.00 USDT</h5>
+                          <div className={`mt-5 ${styles.buyselB}`}>
+                            <button type="submit" className="btn btn-danger">
+                              sell
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-light border ms-3"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                     <ToastContainer />
+
+                    </div>
+
+                    {/* <div className={styles.mainOrder}>
                       <div className={styles.orderPrice}>
                         <div className="ms-5 mt-5">Order Price</div>
 
@@ -1002,7 +1091,7 @@ const SubMenu: React.FC<{
                           </button>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </>
                 )}
               </div>

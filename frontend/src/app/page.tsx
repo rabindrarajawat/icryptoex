@@ -124,9 +124,11 @@ const LoginForm: React.FC = () => {
               />
               Remember me
             </label>
-            <button type="button" onClick={() => router.push("/forget")}>
-              Forget password?
-            </button>
+            <a onClick={() => router.push("/forget")}> Forget password?
+            </a>
+            {/* <p>
+              You have an account? <a href="/">Login Here</a>
+            </p> */}
           </div>
           <div className={styles.buttonStyle}>
             <button type="submit">Login</button>
