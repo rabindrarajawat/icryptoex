@@ -125,6 +125,7 @@ pub async fn login(
     }
 }
 
+
 pub async fn get_all_users(
     pool: web::Data<r2d2::Pool<ConnectionManager<PgConnection>>>,
 ) -> HttpResponse {

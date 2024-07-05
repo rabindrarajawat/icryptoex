@@ -1,6 +1,3 @@
-
-
-
 use crate::orders::order_services::order_service::{create_order, get_all_orders};
 use actix_web::web;
 

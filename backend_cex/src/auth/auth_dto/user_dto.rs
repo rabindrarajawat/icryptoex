@@ -3,7 +3,7 @@ use crate::schema::users;
 use diesel::{Insertable, Queryable, QueryableByName};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
-
+ 
 #[derive(Queryable, Serialize, Deserialize, Debug, QueryableByName)]
 #[table_name = "users"]
 pub struct User {
@@ -32,4 +32,11 @@ pub struct UserResponse {
     pub email: String,
     pub phone_number: String,
     pub country: String,
+}
+
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Claims {
+    pub sub: String,
+    pub exp: usize,
 }
