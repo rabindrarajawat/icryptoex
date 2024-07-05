@@ -80,19 +80,31 @@ const Signup = () => {
 
   const createButton = async (e) => {
     e.preventDefault();
-    if (!name || !email || !phone_number || !country || !password || !confirmPassword) {
+    if (
+      !name ||
+      !email ||
+      !phone_number ||
+      !country ||
+      !password ||
+      !confirmPassword
+    ) {
       setFormError("Please fill in all fields.");
+      return;
     } else if (!isEmailValid(email)) {
       setEmailError("Please enter a valid email address.");
       setFormError("");
+      return;
     } else if (!isPhoneNumberValid(phone_number)) {
       setPhoneError("Phone number must be 10 digits.");
       setFormError("");
+      return;
     } else if (password !== confirmPassword) {
       setPasswordError("Password and confirm password do not match.");
       setFormError("");
+      return;
     } else if (passwordError || emailError || phoneError) {
       setFormError("");
+      return;
     } else {
       setFormError("");
       try {
@@ -109,7 +121,7 @@ const Signup = () => {
             password,
           }),
         });
-  
+
         if (response.ok) {
           setSignupSuccess(true);
         } else {
@@ -123,9 +135,12 @@ const Signup = () => {
       }
     }
   };
-  
 
-  return (
+  return ( 
+     <>
+     <div>
+      
+     </div>
     <div
       className={`d-flex justify-content-center align-items-center ${styles.container}`}
     >
@@ -137,13 +152,13 @@ const Signup = () => {
           </p>
           <div className="text-center">
             <a href="/" className="btn btn-primary">
-              Login Here
+              Login
             </a>
           </div>
         </div>
       ) : (
         <div className={styles.formWrapper}>
-          <h2 className="text-center">Signup</h2>
+          <h2 className="text-center">Create account</h2>
           <form onSubmit={createButton}>
             <div className="mb-3">
               <div className={`position-relative ${styles.inputBox}`}>
@@ -243,20 +258,26 @@ const Signup = () => {
             </div>
 
             <div className="mb-3">
-              {formError && <p className={styles.error}>{formError}</p>}
               <button type="submit" className="btn btn-dark w-100">
                 Create
               </button>
+              {formError && (
+                <p className={`${styles.error} mt-2`}>{formError}</p>
+              )}
             </div>
             <div className="text-center">
               <p>
-                You have an account? <a href="/">Login Here</a>
+                Already have an account?
+                <a href="/">Login</a>
               </p>
             </div>
           </form>
         </div>
       )}
     </div>
+  </>
+      
+
   );
 };
 

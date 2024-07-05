@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); 
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +17,7 @@ const LoginForm: React.FC = () => {
 
   const handleCheckboxChange = () => {
     setRememberMe(!rememberMe);
-  };
+  };                                                                    
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -83,6 +83,30 @@ const LoginForm: React.FC = () => {
   }, []);
 
   return (
+    <>
+      <div>
+      
+      <div className="d-flex justify-content-between align-items-center p-3">
+      <div className={`${styles.background}`}>
+            <div className={`${styles.icrytoex} d-flex justify-content-center`}>
+              <span className="text-white">icryp</span>
+              <span className="text-danger">toex</span>
+            </div>
+            <div className={`d-flex justify-content-center align-items-center`}>
+              <img
+                src="/assets/hero.svg"
+                alt=""
+                className={`${styles.hero} pt-4`}
+              />
+            </div>
+            <div className="d-flex justify-content-center align-item-center">
+              <p className={`${styles.home} pt-4`}>
+                Home to 500+ Crypto Assets
+              </p>
+            </div>
+          </div>
+        </div>
+      
     <div className={styles.container}>
       <div className={styles.formWrapper}>
         <h2>Login</h2>
@@ -91,7 +115,7 @@ const LoginForm: React.FC = () => {
           <div className={styles.inputBox}>
             <input
               type="text"
-              placeholder="userEmail"
+              placeholder="Email id"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -109,7 +133,7 @@ const LoginForm: React.FC = () => {
             />
             <i
               className={`bi ${
-                showPassword ? "bi-eye-fill" :"bi-eye-slash-fill" 
+                showPassword ? "bi-eye-fill" : "bi-eye-slash-fill"
               } ${styles.eyeIcon} ${styles.icon}`}
               onClick={toggleShowPassword}
             ></i>{" "}
@@ -124,23 +148,30 @@ const LoginForm: React.FC = () => {
               />
               Remember me
             </label>
-            <a onClick={() => router.push("/forget")}> Forget password?
+            <a
+              type="button"
+              onClick={() => router.push("/forget")}
+              className="text-primary"
+            >
+              Forget password?
             </a>
-            {/* <p>
-              You have an account? <a href="/">Login Here</a>
-            </p> */}
           </div>
           <div className={styles.buttonStyle}>
             <button type="submit">Login</button>
           </div>
           <div className={styles.registerLink}>
             <p>
-              Don't have an account? <a href="/signup">SignUp</a>
+              Not registered yet?{" "}
+              <a href="/signup" className="text-primary">
+                Create Account
+              </a>
             </p>
           </div>
         </form>
       </div>
     </div>
+    </div>
+    </>
   );
 };
 
