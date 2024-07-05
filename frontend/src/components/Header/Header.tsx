@@ -26,7 +26,7 @@ export default function Header() {
   return (
     <header>
       <>
-        <nav className={`navbar  ${styles.containerFluid}`}>
+        <nav className={`navbar ${styles.containerFluid}`}>
           <div className={`container-fluid`}>
             <a className={`navbar-brand`} href="#">
               <Image

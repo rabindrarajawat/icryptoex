@@ -86,8 +86,8 @@ width:100%;
     margin-left: 10%;
 }
 .buySell {
-    margin-top: -26%;
-    margin-left: -25%;
+  margin-top: -26%;
+  margin-left: -12%;
 }
 .limit {
   margin-top: -94px;
@@ -133,7 +133,8 @@ width:100%;
   margin-left:-69%;
 }
 .buyselB {
-  margin-left: 21%;
+  margin-left: 61%;
+  margin-right: -21%;
 }
 .otd {
   margin-left: 41.5%;
@@ -147,6 +148,10 @@ width:100%;
 }
 .orderBook{
     margin-left:-2%;
+}
+.buyset{
+
+
 }
 
 /* Media Queries */

@@ -768,7 +768,7 @@ const SubMenu: React.FC<{
                 <div className={styles.buySell}>
                   <div className="d-flex flex-row bd-highlight  ms-5 mt-5 pt-4 ps-4">
                     <div
-                      className={`ms-5 mt-5 ps-4 text-success ${
+                      className={`ms-4 mt-5 ps-0 text-success  ${styles.buyset} ${
                         selectedOption === "buy"
                           ? "text-primary border-bottom border-primary"
                           : ""
@@ -778,7 +778,7 @@ const SubMenu: React.FC<{
                       Buy
                     </div>
                     <div
-                      className={`ms-2 mt-5 ps-4 text-danger ${
+                      className={`ms-4 mt-5 ps-0 text-danger ${
                         selectedOption === "sell"
                           ? "text-primary border-bottom border-primary border-bottom-2"
                           : ""
@@ -896,7 +896,7 @@ const SubMenu: React.FC<{
                           </div>
                           <h5 className="text-body mt-2 ms-5">0.00 USDT</h5>
                           <div className={`mt-5 ${styles.buyselB}`}>
-                            <button type="submit" className="btn btn-success">
+                            <button type="submit" className="btn btn-success ">
                               Buy
                             </button>
                             <button
