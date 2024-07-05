@@ -6,9 +6,19 @@
 }  */
 .containerFluid{
   margin-bottom: 1%;
-  margin-right: 4%;
+  margin-right: 5%;
   margin-left: 8%;
-  margin-top: 1%;
+  padding-top: 1%;
+  }
+  .offcanvascustom {
+    position: fixed;
+    top: 42px;
+    right: -118px; /* Adjust as needed */
+      width: 300px; /* Adjust as needed */
+      height: 300px; /* Adjust as needed */
+  }
+  .profile{
+    margin-right:5%;
   }
    /* .setNavI{
       margin-right:7%;

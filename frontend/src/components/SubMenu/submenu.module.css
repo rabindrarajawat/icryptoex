@@ -2,6 +2,7 @@
 .selectMenu{
   font-weight: bold;
   border-bottom: 2px solid #5367FF;
+  overflow-x: hidden;
 }
 .searchContainer {
   margin-top: 4%;
