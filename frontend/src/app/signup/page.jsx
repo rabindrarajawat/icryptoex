@@ -177,7 +177,7 @@ const Signup = () => {
               Your account has been successfully created.
             </p>
             <div className="text-center">
-              <a href="/" className="btn btn-primary">
+              <a href="/login" className="btn btn-primary">
                 Login
               </a>
             </div>
@@ -239,7 +239,7 @@ const Signup = () => {
                     required
                   >
                     <option value="" disabled>Select Country</option>
-                    <option value="India">India</option>
+                    <option value="in">in</option>
                     <option value="America">America</option>
                     <option value="London">London</option>
                     <option value="Ukraine">Ukraine</option>
