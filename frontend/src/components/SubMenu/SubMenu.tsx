@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./submenu.module.css";
 import Image from "next/image";
-import {ToastContainer,toast} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
- 
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import TradingViewWidget from "./TradingViewWidget";
 
 import { ChartOptions } from "chart.js";
 import axios from "axios";
+import { Albert_Sans } from "next/font/google";
+import { jwtDecode } from "jwt-decode";
+interface DecodedToken {
+  name: string; 
+}
 
 const SubMenu: React.FC<{
   activeMenu: string;
@@ -31,6 +36,70 @@ const SubMenu: React.FC<{
   });
 
   const [selectedOption, setSelectedOption] = useState<string | null>("buy");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState<string | null>(null);
+
+  const router = useRouter();
+  useEffect(() => {
+    const userLoggedIn = localStorage.getItem("isLoggedIn");
+    setIsLoggedIn(userLoggedIn === "true");
+
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token) as DecodedToken;
+        setUserName(decodedToken.name);
+        console.log(decodedToken.name, "User Name");
+      } catch (error) {
+        console.error("Invalid token", error);
+      }
+    }
+  }, []);
+
+
+
+  const handleClick = (option: React.SetStateAction<string | null>) => {
+    setIsLoggedIn(true)
+    if (!isLoggedIn) {
+      localStorage.setItem("isLoggedIn", "true");
+      alert("Please login first.");
+      router.push("/login");
+      return;
+    }
+    setSelectedOption(option);
+  };
+
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+   
+ 
+    if (!isLoggedIn) {
+      setIsLoggedIn(true);
+
+      alert("Please login first.");
+      localStorage.setItem("isLoggedIn", "true");
+
+      router.push("/login");
+      return;
+    }
+    try {
+      const response = await axios.post("http://localhost:8000/orders", formData);
+      console.log("Order created:", response.data);
+      toast.success("Order created successfully");
+    } catch (error) {
+      console.log("Error creating order:", error);
+      toast.error("Failed to create order");
+    }
+  };
+
+  const handleChange = (e: { target: { name: any; value: any; }; }) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
 
   const DepthChartOptions: ChartOptions<"line"> = {
     responsive: true,
@@ -100,29 +169,6 @@ const SubMenu: React.FC<{
     { link: "Token" },
     { link: "Wishlist" },
   ];
-
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/orders",
-        formData
-      );
-      console.log("Order created:", response.data);
-      toast.success("Order created successfully");
-    } catch (error) {
-      console.log("Error creating order:", error);
-      toast.error("Failed to create order");
-    }
-  };
-
-  const handleChange = (e: { target: { name: any; value: any } }) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
   const handleListClick = (listName: string) => {
     setActiveList(listName);
@@ -765,15 +811,18 @@ const SubMenu: React.FC<{
                 >
                   Transcation
                 </h4>
+
                 <div className={styles.buySell}>
                   <div className="d-flex flex-row bd-highlight  ms-5 mt-5 pt-4 ps-4">
                     <div
-                      className={`ms-4 mt-5 ps-0 text-success  ${styles.buyset} ${
+                      className={`ms-4 mt-5 ps-0 text-success  ${
+                        styles.buyset
+                      } ${
                         selectedOption === "buy"
                           ? "text-primary border-bottom border-primary"
                           : ""
                       }`}
-                      onClick={() => setSelectedOption("buy")}
+                      onClick={() => handleClick("buy")}
                     >
                       Buy
                     </div>
@@ -783,7 +832,7 @@ const SubMenu: React.FC<{
                           ? "text-primary border-bottom border-primary border-bottom-2"
                           : ""
                       }`}
-                      onClick={() => setSelectedOption("sell")}
+                      onClick={() => handleClick("sell")}
                     >
                       Sell
                     </div>
@@ -836,7 +885,7 @@ const SubMenu: React.FC<{
                           <div className="ms-5 mt-5">Order Price</div>
                           <div className="row w-100">
                             <div
-                              className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
+                              className={`ms-5 p-1 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
                             >
                               <input
                                 type="number"
@@ -844,7 +893,7 @@ const SubMenu: React.FC<{
                                 placeholder="13450.00"
                                 value={formData.order_price}
                                 onChange={handleChange}
-                                className="col-sm-8"
+                                className={`col-sm-8 ${styles.inputNoBorder}`}
                               />
                               <h6 className="col-sm-8 ms-5">USDT</h6>
                             </div>
@@ -854,7 +903,7 @@ const SubMenu: React.FC<{
                           <div className="ms-5 pt-3">Order Quantity</div>
                           <div className="row w-100">
                             <div
-                              className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
+                              className={`ms-5 p-1 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
                             >
                               <input
                                 type="number"
@@ -862,7 +911,7 @@ const SubMenu: React.FC<{
                                 placeholder="0.098"
                                 value={formData.order_quantity}
                                 onChange={handleChange}
-                                className="col-sm-8"
+                                className={`col-sm-8 ${styles.inputNoBorder}`}
                               />
                               <h6 className="col-sm-8 ms-5">BTC</h6>
                             </div>
@@ -872,7 +921,7 @@ const SubMenu: React.FC<{
                           <div className="ms-5 mt-3">Order Value</div>
                           <div className="row w-100">
                             <div
-                              className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
+                              className={`ms-5 p-1 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
                             >
                               <input
                                 type="number"
@@ -880,7 +929,7 @@ const SubMenu: React.FC<{
                                 placeholder="13450.00"
                                 value={formData.order_value}
                                 onChange={handleChange}
-                                className="col-sm-8"
+                                className={`col-sm-8 ${styles.inputNoBorder}`}
                               />
                               <h6 className="col-sm-8 ms-5">USDT</h6>
                             </div>
@@ -908,8 +957,7 @@ const SubMenu: React.FC<{
                           </div>
                         </div>
                       </form>
-                     <ToastContainer />
-
+                      <ToastContainer />
                     </div>
                   </>
                 )}
@@ -955,7 +1003,7 @@ const SubMenu: React.FC<{
                           <div className="ms-5 mt-5">Order Price</div>
                           <div className="row w-100">
                             <div
-                              className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
+                              className={`ms-5  text-dark border p-1 d-flex justify-content-between align-items-center ${styles.orderprice}`}
                             >
                               <input
                                 type="number"
@@ -963,8 +1011,9 @@ const SubMenu: React.FC<{
                                 placeholder="13450.00"
                                 value={formData.order_price}
                                 onChange={handleChange}
-                                className="col-sm-8"
-                              />
+                                className={`col-sm-8 ${styles.inputNoBorder}`}
+                                />
+
                               <h6 className="col-sm-8 ms-5">USDT</h6>
                             </div>
                           </div>
@@ -973,7 +1022,7 @@ const SubMenu: React.FC<{
                           <div className="ms-5 pt-3">Order Quantity</div>
                           <div className="row w-100">
                             <div
-                              className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
+                              className={`ms-5  text-dark p-1 border d-flex justify-content-between  align-items-center ${styles.orderprice}`}
                             >
                               <input
                                 type="number"
@@ -981,7 +1030,7 @@ const SubMenu: React.FC<{
                                 placeholder="0.098"
                                 value={formData.order_quantity}
                                 onChange={handleChange}
-                                className="col-sm-8"
+                                className={`col-sm-8 ${styles.inputNoBorder}`}
                               />
                               <h6 className="col-sm-8 ms-5">BTC</h6>
                             </div>
@@ -991,7 +1040,7 @@ const SubMenu: React.FC<{
                           <div className="ms-5 mt-3">Order Value</div>
                           <div className="row w-100">
                             <div
-                              className={`ms-5 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
+                              className={`ms-5  p-1 text-dark border  d-flex justify-content-between align-items-center ${styles.orderprice}`}
                             >
                               <input
                                 type="number"
@@ -999,7 +1048,7 @@ const SubMenu: React.FC<{
                                 placeholder="13450.00"
                                 value={formData.order_value}
                                 onChange={handleChange}
-                                className="col-sm-8"
+                                className={`col-sm-8 ${styles.inputNoBorder}`}
                               />
                               <h6 className="col-sm-8 ms-5">USDT</h6>
                             </div>
@@ -1027,8 +1076,7 @@ const SubMenu: React.FC<{
                           </div>
                         </div>
                       </form>
-                     <ToastContainer />
-
+                      <ToastContainer />
                     </div>
 
                     {/* <div className={styles.mainOrder}>

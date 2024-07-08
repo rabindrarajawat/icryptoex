@@ -150,10 +150,12 @@ width:100%;
 .orderBook{
     margin-left:-2%;
 }
-.buyset{
-
-
+.inputNoBorder {
+  border: none;
+  outline: none; /* Optional: Remove outline on focus */
+  /* Add any other styling you need for the input */
 }
+
 
 /* Media Queries */
 @media only screen and (max-width: 767px) {
