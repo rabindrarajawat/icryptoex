@@ -239,11 +239,10 @@ const Signup = () => {
                     required
                   >
                     <option value="" disabled>Select Country</option>
-                    <option value="in">in</option>
-                    <option value="America">America</option>
-                    <option value="London">London</option>
-                    <option value="Ukraine">Ukraine</option>
-                    <option value="Uganda">Uganda</option>
+                    <option value="in">India</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Colombia">Colombia	</option>
                   </select>
                   <i className={`bi bi-geo-alt-fill ${styles.icon}`}></i>
                 </div>

@@ -76,10 +76,8 @@ const SubMenu: React.FC<{
     if (!isLoggedIn) {
       setIsLoggedIn(true);
 
-      alert("Please login first.");
+      toast.error("you need to login for buy");
       localStorage.setItem("isLoggedIn", "true");
-
-      router.push("/login");
       return;
     }
     try {

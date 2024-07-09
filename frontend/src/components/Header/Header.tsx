@@ -141,9 +141,9 @@ export default function Header() {
               </div> */}
               <div className="mt-2">
 
-                <span className={styles.userInfo}>
+                <span className={` ${styles.userInfo}`}>
                     {isLoggedIn ? (
-                      <span>{`${userName || "User"}`}</span>
+                      <span>{`${userName || "users"}`}</span>
                     ) : (
                       <span></span>
                     )}
