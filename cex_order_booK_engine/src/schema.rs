@@ -1,13 +1,22 @@
 // @generated automatically by Diesel CLI.
 
 diesel::table! {
-    orders (id) {
+    order_book (id) {
         id -> Uuid,
         order_price -> Numeric,
         order_value -> Numeric,
         order_quantity -> Numeric,
     }
 }
+
+// diesel::table! {
+//     orders (id) {
+//         id -> Uuid,
+//         order_price -> Numeric,
+//         order_value -> Numeric,
+//         order_quantity -> Numeric,
+//     }
+// }
 
 diesel::table! {
     users (id) {
@@ -26,6 +35,7 @@ diesel::table! {
 }
 
 diesel::allow_tables_to_appear_in_same_query!(
-    orders,
+    order_book,
+    // orders,
     users,
 );

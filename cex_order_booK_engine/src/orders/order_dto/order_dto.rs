@@ -1,11 +1,11 @@
-use crate::schema::orders;
+use crate::schema::order_book;
 use bigdecimal::BigDecimal;
 use diesel::{Insertable, Queryable, QueryableByName};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 #[derive(Queryable, Serialize, Deserialize, Debug, QueryableByName)]
-#[diesel(table_name = orders)]
+#[diesel(table_name = order_book)]
 pub struct Order {
     pub id: Uuid,
     pub order_price: BigDecimal,
@@ -14,7 +14,7 @@ pub struct Order {
 }
 
 #[derive(Insertable, Deserialize)]
-#[diesel(table_name = orders)]
+#[diesel(table_name = order_book)]
 pub struct NewOrder {
     pub order_price: BigDecimal,
     pub order_value: BigDecimal,
