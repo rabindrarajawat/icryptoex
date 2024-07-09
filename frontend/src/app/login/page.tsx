@@ -41,7 +41,10 @@ const LoginForm: React.FC = () => {
         if (token) {
           localStorage.setItem("token", token);
           console.log("Login successful");
+          localStorage.setItem("isLoggedIn", "true");
           router.push("/");
+    
+          
 
           if (rememberMe) {
             localStorage.setItem("rememberMe", "true");
