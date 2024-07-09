@@ -1,4 +1,3 @@
-
 use crate::auth::auth_dto::user_dto::{NewUser, User, UserResponse};
 use crate::schema::users::dsl::*;
 use actix_web::{web, HttpResponse};
@@ -16,7 +15,7 @@ use uuid::Uuid;
 pub struct SignupData {
     pub name: String,
     pub email: String,
-    pub phone_number: String, 
+    pub phone_number: String,
     pub country: String,
     pub password: String,
 }
@@ -31,6 +30,7 @@ pub struct LoginData {
 struct Claims {
     sub: String,
     iat: i64,
+    exp: i64,
     name: String,
 }
 
@@ -105,6 +105,7 @@ pub async fn login(
         let claims = Claims {
             sub: user.id.to_string(),
             iat: Utc::now().timestamp(),
+            exp: Utc::now().timestamp() + 28800,
             name: user.name,
         };
         let token = encode(
@@ -124,7 +125,6 @@ pub async fn login(
         HttpResponse::Unauthorized().json(response_body)
     }
 }
-
 
 pub async fn get_all_users(
     pool: web::Data<r2d2::Pool<ConnectionManager<PgConnection>>>,
@@ -233,7 +233,7 @@ pub async fn delete_user(
 
     match user_exists {
         Some(_) => {
-             diesel::delete(users.filter(id.eq(user_id)))
+            diesel::delete(users.filter(id.eq(user_id)))
                 .execute(&mut conn)
                 .expect("Error deleting user");
 
