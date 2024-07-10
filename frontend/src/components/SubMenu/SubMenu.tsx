@@ -12,7 +12,7 @@ import axios from "axios";
 import { Albert_Sans } from "next/font/google";
 import { jwtDecode } from "jwt-decode";
 interface DecodedToken {
-  name: string; 
+  name: string;
 }
 
 const SubMenu: React.FC<{
@@ -41,13 +41,13 @@ const SubMenu: React.FC<{
 
   const router = useRouter();
   useEffect(() => {
-    const userLoggedIn = localStorage.getItem("isLoggedIn");
-    setIsLoggedIn(userLoggedIn === "true");
+    const userLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    setIsLoggedIn(userLoggedIn);
 
     const token = localStorage.getItem("token");
     if (token) {
       try {
-        const decodedToken = jwtDecode(token) as DecodedToken;
+        const decodedToken = jwtDecode(token) as { name: string };
         setUserName(decodedToken.name);
         console.log(decodedToken.name, "User Name");
       } catch (error) {
@@ -56,34 +56,28 @@ const SubMenu: React.FC<{
     }
   }, []);
 
-
-
   const handleClick = (option: React.SetStateAction<string | null>) => {
-    setIsLoggedIn(true)
-    if (!isLoggedIn) {
-      localStorage.setItem("isLoggedIn", "true");
-      alert("Please login first.");
-      router.push("/login");
-      return;
-    }
     setSelectedOption(option);
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-   
- 
+
     if (!isLoggedIn) {
-      setIsLoggedIn(true);
-
-      alert("Please login first.");
-      localStorage.setItem("isLoggedIn", "true");
-
-      router.push("/login");
+      toast.error("You need to log in to buy");
       return;
+    } else {
+      localStorage.removeItem("token");
+      localStorage.setItem("isLoggedIn", "false");
+      setIsLoggedIn(false);
+      router.push("/");
     }
+
     try {
-      const response = await axios.post("http://localhost:8000/orders", formData);
+      const response = await axios.post(
+        "http://localhost:8000/orders",
+        formData
+      );
       console.log("Order created:", response.data);
       toast.success("Order created successfully");
     } catch (error) {
@@ -92,14 +86,13 @@ const SubMenu: React.FC<{
     }
   };
 
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
-
 
   const DepthChartOptions: ChartOptions<"line"> = {
     responsive: true,
@@ -1012,7 +1005,7 @@ const SubMenu: React.FC<{
                                 value={formData.order_price}
                                 onChange={handleChange}
                                 className={`col-sm-8 ${styles.inputNoBorder}`}
-                                />
+                              />
 
                               <h6 className="col-sm-8 ms-5">USDT</h6>
                             </div>
