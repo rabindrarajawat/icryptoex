@@ -68,12 +68,11 @@ use diesel::r2d2::{self, ConnectionManager};
 use dotenv::dotenv;
 use std::env;
 use diesel::RunQueryDsl;
-// use std::sync::Arc;
-
+ 
 mod auth_guard;
 mod orders;
 mod schema;
-
+mod sell;
 use crate::auth_guard::auth_guard::AuthGuard;
 async fn init_database(pool: &web::Data<r2d2::Pool<ConnectionManager<PgConnection>>>) {
     let conn = &mut pool.get().expect("Failed to get DB connection from pool");
@@ -106,6 +105,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(middleware::Logger::default())
             .wrap(AuthGuard::new(jwt_secret.clone()))
             .configure(orders::order_controller::order_controller::order_routes)
+            .configure(sell::sell_controller::sell_controller::sell_routes)
     })
     .bind(bind_address)?
     .run()
