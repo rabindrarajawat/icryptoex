@@ -68,7 +68,8 @@ use diesel::r2d2::{self, ConnectionManager};
 use dotenv::dotenv;
 use std::env;
 use diesel::RunQueryDsl;
- 
+use actix_cors::Cors;
+
 mod auth_guard;
 mod orders;
 mod schema;
@@ -100,10 +101,19 @@ async fn main() -> std::io::Result<()> {
     let jwt_secret = env::var("JWT_SECRET").expect("JWT_SECRET must be set");
 
     HttpServer::new(move || {
+
+        let cors = Cors::default()
+        .allow_any_origin()
+        .allow_any_method()
+        .allow_any_header()
+        .max_age(3600);
+
+
         App::new()
             .app_data(web::Data::new(pool.clone()))
             .wrap(middleware::Logger::default())
             .wrap(AuthGuard::new(jwt_secret.clone()))
+            .wrap(cors)
             .configure(orders::order_controller::order_controller::order_routes)
             .configure(sell::sell_controller::sell_controller::sell_routes)
     })
