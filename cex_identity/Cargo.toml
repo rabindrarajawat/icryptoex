@@ -1,22 +1,3 @@
-
-
-# [package]
-# name = "rust_auth"
-# version = "0.1.0"
-# edition = "2021"
-
-#  [dependencies]
-# actix-web = "4"
-# actix-rt = "2"
-# diesel = { version = "2.0", features = ["postgres", "r2d2"] }
-# serde = { version = "1.0", features = ["derive"] }
-# jsonwebtoken = "8"
-# bcrypt = "0.14"
-# env_logger = "0.10"
-# uuid = { version = "1.3", features = ["serde", "v4"] }
-# dotenv = "0.15"
-
-
 [package]
 name = "cex_identity"
 version = "0.1.0"
@@ -24,23 +5,17 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4"
-actix-web-httpauth = "0.6"
-actix-cors = "0.6.0"
+actix-web-httpauth = "0.8.0"
+actix-cors = "0.7.0"
 actix-rt = "2"
-# diesel = { version = "2.0", features = ["postgres", "r2d2","numeric"] }
-diesel = { version = "2.0.0", features = [
-    "postgres",
-    "uuid",
-    "r2d2",
-    "numeric",
-] }
-# uuid = { version = "1.0", features = ["v4"] }
+diesel = { version = "2.0.0", features = ["postgres","uuid","r2d2","numeric",] }
 serde = { version = "1.0", features = ["derive"] }
-jsonwebtoken = "8"
-bcrypt = "0.14"
-env_logger = "0.10"
+jsonwebtoken = "9.3.0"
+bcrypt = "0.15.1"
+env_logger = "0.11.3"
 uuid = { version = "1.0", features = ["serde", "v4"] }
 dotenv = "0.15"
 chrono = "0.4"
 serde_json = "1.0"
 bigdecimal = { version = "0.4", features = ["serde"] }
+cex_common = { path = "../cex_common" }

@@ -1,0 +1,7 @@
+# [workspace]
+# members = [
+#     "cex_common",
+#     "cex_identity",
+#     "cex_order_book_engine",
+#     "frontend"
+# ]
