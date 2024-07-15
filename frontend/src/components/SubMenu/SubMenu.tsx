@@ -34,15 +34,15 @@ const SubMenu: React.FC<{
     order_price: "",
     order_quantity: "",
   });
-  const [sellData,setsellData] = useState({
-    sell_value: '',
-    sell_price: '',
-    sell_quantity: ''
-  })
+  const [sellData, setsellData] = useState({
+    sell_value: "",
+    sell_price: "",
+    sell_quantity: "",
+  });
 
   const [selectedOption, setSelectedOption] = useState<string | null>("buy");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoggout,setIsLoggout] = useState(false);
+  const [isLoggout, setIsLoggout] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
 
   const router = useRouter();
@@ -60,8 +60,7 @@ const SubMenu: React.FC<{
         console.error("Invalid token", error);
       }
     }
-  }, []);
-  
+  }, [isLoggedIn]); 
   const handleClick = (option: React.SetStateAction<string | null>) => {
     setSelectedOption(option);
   };
@@ -75,7 +74,7 @@ const SubMenu: React.FC<{
       return;
     }
     const token = localStorage.getItem("token");
-    
+
     if (!isLoggedIn) {
       toast.error("you");
       return;
@@ -83,13 +82,9 @@ const SubMenu: React.FC<{
 
     try {
       const response = await axios.post(
-        "http://localhost:8001/orders",
+        "http://localhost:8000/orders",
         formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+       
       );
       console.log("Buy order:", response.data);
       toast.success("Order buy  successfully");
@@ -147,10 +142,6 @@ const SubMenu: React.FC<{
       [name]: value,
     }));
   };
-
- 
-  
-
 
   const DepthChartOptions: ChartOptions<"line"> = {
     responsive: true,
@@ -934,7 +925,7 @@ const SubMenu: React.FC<{
                       <form onSubmit={handleSubmit}>
                         <div className={styles.orderPrice}>
                           <div className="ms-5 mt-5">Order Price</div>
-                          <div className="row w-100">
+                          <div className="row w-100 mt-1">
                             <div
                               className={`ms-5 p-1 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
                             >
@@ -952,7 +943,7 @@ const SubMenu: React.FC<{
                         </div>
                         <div className={styles.orderPrice}>
                           <div className="ms-5 pt-3">Order Quantity</div>
-                          <div className="row w-100">
+                          <div className="row w-100 mt-1">
                             <div
                               className={`ms-5 p-1 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
                             >
@@ -970,7 +961,7 @@ const SubMenu: React.FC<{
                         </div>
                         <div className={styles.orderPrice}>
                           <div className="ms-5 mt-3">Order Value</div>
-                          <div className="row w-100">
+                          <div className="row w-100 mt-1">
                             <div
                               className={`ms-5 p-1 bg-light text-dark border d-flex justify-content-between align-items-center ${styles.orderprice}`}
                             >
@@ -1051,8 +1042,8 @@ const SubMenu: React.FC<{
                     <div className={styles.mainOrder}>
                       <form onSubmit={handleSellSubmit}>
                         <div className={styles.orderPrice}>
-                          <div className="ms-5 mt-5">Sell value</div>
-                          <div className="row w-100">
+                          <div className="ms-5 mt-5">Sell Value</div>
+                          <div className="row w-100  mt-1">
                             <div
                               className={`ms-5  text-dark border p-1 d-flex justify-content-between align-items-center ${styles.orderprice}`}
                             >
@@ -1070,8 +1061,8 @@ const SubMenu: React.FC<{
                           </div>
                         </div>
                         <div className={styles.orderPrice}>
-                          <div className="ms-5 mt-3">sell price</div>
-                          <div className="row w-100">
+                          <div className="ms-5 mt-3">Sell Price</div>
+                          <div className="row w-100  mt-1">
                             <div
                               className={`ms-5  p-1 text-dark border  d-flex justify-content-between align-items-center ${styles.orderprice}`}
                             >
@@ -1085,11 +1076,11 @@ const SubMenu: React.FC<{
                               />
                               <h6 className="col-sm-8 ms-5">USDT</h6>
                             </div>
-                          </div>
+                          </div>        
                         </div>
                         <div className={styles.orderPrice}>
-                          <div className="ms-5 mt-3">sell quantity</div>
-                          <div className="row w-100">
+                          <div className="ms-5 mt-3">Sell Quantity</div>
+                          <div className="row w-100  mt-1 ">
                             <div
                               className={`ms-5  p-1 text-dark border  d-flex justify-content-between align-items-center ${styles.orderprice}`}
                             >
@@ -1127,7 +1118,7 @@ const SubMenu: React.FC<{
                           </div>
                         </div>
                       </form>
-                  <ToastContainer />
+                      <ToastContainer />
                     </div>
 
                     {/* <div className={styles.mainOrder}>
